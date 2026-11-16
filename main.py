@@ -4,11 +4,11 @@ import sys
 from configs import NPC_CONFIGS, LOCATION_CONFIGS, ITEM_CONFIGS
 from item import Item
 from location import Location
-from npc import NPC, DefiantSuspect, NervousSuspect
+from npc import NPC, DefiantSuspect, NervousSuspect, QuietSuspect, QuietSuspect
 from player import Player
 
 
-class MuderInTheDarkGame:
+class MurderInTheDarkGame:
     def __init__(self):
         self._current_night = 1
         self._max_nights = 3
@@ -65,6 +65,8 @@ class MuderInTheDarkGame:
                 npc = NervousSuspect(conf["name"], conf["role"])
             elif npc_type == "defiant":
                 npc = DefiantSuspect(conf["name"], conf["role"])
+            elif npc_type == "quiet":
+                npc = QuietSuspect(conf["name"], conf["role"])
             else:
                 npc = NPC(conf["name"], conf["role"])
 
@@ -112,15 +114,13 @@ class MuderInTheDarkGame:
                 print(f"\nNIGHT {self._current_night} HAS FALLEN...")
                 print("The house grows darker. Time is running out to solve the case.")
             else:
-                self.trigger_murder_game_over()
+                print("\nTHE FINAL MORNING HAS ARRIVED.")
+                print("You have run out of time. You must make your final accusation now.")
+                self._handle_accuse()
 
     def trigger_murder_game_over(self):
-        """Game over if nights run out."""
-        print("GAME OVER: YOU WERE MURDERED!")
-        print(f"You failed to catch the murderer before Night {self._max_nights} ended.")
-        print(f"As you slept, {self._killer.get_name()} ({self._killer.get_role()}) crept into your room...")
-        print(f"The killer was {self._killer.get_name()} all along!")
-        sys.exit()
+        """The game ends with a final accusation."""
+        print("The investigation has ended.")
 
     def _handle_move(self, connections: dict) -> bool:
         direction = input(f"Direction to walk ({', '.join(connections.keys())}): ").strip().lower()
@@ -143,17 +143,55 @@ class MuderInTheDarkGame:
             if not target_npc.is_alive():
                 print(f"\n{target_npc.get_name()} is dead and cannot speak.")
                 return False
-            
-            print("\nTopics: 'murder', 'basement', 'jon'")
-            topic = input("Ask about topic: ").strip()
-            
+
+            dialogues = target_npc.get_dialogues()
+            if not dialogues:
+                print(f"\n{target_npc.get_name()} has nothing to say right now.")
+                return False
+
+            print("\nWhat do you want to ask about?")
+            topic_options = {}
+            valid_rooms = {room.lower(): room for room in LOCATION_CONFIGS.keys()}
+            current_room_name = current_room.get_name()
+            current_room_lower = current_room_name.lower()
+
+            idx = 1
+            for rule in dialogues:
+                topic_name = rule.get('topic', '').lower()
+
+                if topic_name in topic_options.values():
+                    continue
+
+                if topic_name in valid_rooms:
+                    if topic_name == current_room_lower:
+                        display_name = f"This room ({current_room_name})"
+                        topic_options[str(idx)] = topic_name
+                        print(f" [{idx}] {display_name}")
+                        idx += 1
+                else:
+                    display_name = topic_name.replace('_', ' ').title()
+                    topic_options[str(idx)] = topic_name
+                    print(f" [{idx}] {display_name}")
+                    idx += 1
+
+            if not topic_options:
+                print(f"\n{target_npc.get_name()} has no topics to discuss with you in this room.")
+                return False
+
+            topic_choice = input(f"Choose topic (1-{len(topic_options)}): ").strip()
+            topic = topic_options.get(topic_choice)
+
+            if topic is None:
+                print("\nInvalid topic choice.")
+                return False
+
             target_npc.interact(
-                topic, 
-                current_room, 
-                self._current_night, 
-                self._killer, 
-                self._victim, 
-                self._player.get_name(), 
+                topic,
+                current_room,
+                self._current_night,
+                self._killer,
+                self._victim,
+                self._player.get_name(),
                 self._npcs
             )
             return True
@@ -256,5 +294,5 @@ class MuderInTheDarkGame:
 
 
 if __name__ == "__main__":
-    game = MuderInTheDarkGame()
+    game = MurderInTheDarkGame()
     game.play()

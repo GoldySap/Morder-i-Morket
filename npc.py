@@ -100,6 +100,14 @@ class NPC:
             return
 
         topic_clean = topic.lower().strip()
+        topic_aliases = {
+            "livingroom": "living room",
+            "living room": "living room",
+            "murderer": "murder",
+            "clue": "hint",
+            "clues": "hint"
+        }
+        topic_clean = topic_aliases.get(topic_clean, topic_clean)
         present_npcs = [other.get_name() for other in current_room.get_npcs() if other != self and other.is_alive()]
         current_room_name = current_room.get_name().lower()
 
@@ -107,11 +115,14 @@ class NPC:
 
         for rule in self._dialogues:
             if rule["topic"] == topic_clean:
-                if rule["required_location"] and rule["required_location"] != current_room_name:
+                required_location = rule.get("required_location")
+                if required_location and required_location.lower().strip() != current_room_name:
                     continue
-                if rule["required_present"] and rule["required_present"].lower() not in [p.lower() for p in present_npcs]:
+                required_present = rule.get("required_present")
+                if required_present and required_present.lower().strip() not in [p.lower() for p in present_npcs]:
                     continue
-                if rule["required_night"] is not None and rule["required_night"] != current_night:
+                required_night = rule.get("required_night")
+                if required_night is not None and int(required_night) != int(current_night):
                     continue
                 
                 matched_response = rule["response"]
@@ -141,7 +152,7 @@ class NPC:
 
             print(f"\n{self._name} ({self._role}) says: \"{formatted_text}\"")
         else:
-            print(f"\n{self._name} says: \"I don't know anything about the topic of: '{topic}'.\"")
+            print(f"\n{self._name} says: \"I don't have anything to add about that right now.\"")
 
 
 class NervousSuspect(NPC):
