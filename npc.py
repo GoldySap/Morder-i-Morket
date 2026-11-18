@@ -129,13 +129,54 @@ class NPC:
                 break
 
         if matched_response:
+            living_suspects = [
+                character for character in all_npcs
+                if character.is_alive() and character is not self
+            ]
+            speaker_index = all_npcs.index(self) if self in all_npcs else 0
+            suspect = (
+                living_suspects[speaker_index % len(living_suspects)]
+                if living_suspects else None
+            )
+            role_clues = {
+                "party host": (
+                    "someone in the host's inner circle",
+                    "they were responsible for organizing the party",
+                ),
+                "dj": (
+                    "someone who spent time around the party's equipment",
+                    "they controlled what played over the speakers",
+                ),
+                "sam's best friend": (
+                    "someone in the host's inner circle",
+                    "they were the host's closest friend",
+                ),
+                "quiet bookworm": (
+                    "someone who watched more than they joined in",
+                    "they often turned to books and quiet places",
+                ),
+                "basketball player": (
+                    "someone who spent time around the party's equipment",
+                    "they were looking for athletic gear",
+                ),
+                "awkward nerd": (
+                    "someone who watched more than they joined in",
+                    "they tend to notice patterns and statistics",
+                ),
+            }
+            clue, clue_detail = role_clues.get(
+                killer_npc.get_role().lower(),
+                ("someone who kept a low profile", "their actions may not match their story"),
+            )
             context_data = {
                 "player": player_name,
                 "self": self._name,
                 "npc": self._name,
                 "name": self._name,
                 "role": self._role,
-                "killer": killer_npc.get_name(),
+                "killer_clue": clue,
+                "killer_detail": clue_detail,
+                "suspect": suspect.get_name() if suspect else "someone",
                 "victim": victim_npc.get_name(),
                 "room": current_room.get_name(),
                 "location": current_room.get_name(),
@@ -180,3 +221,27 @@ class QuietSuspect(NPC):
             print(f"The cold body of {self._name} ({self._role}) lies here.")
         else:
             print(f"{self._name} ({self._role}) sits quietly in the shadows, observing everyone.")
+
+class ArrogantSuspect(NPC):
+    """Subclass representing an arrogant/smug character."""
+    def behavior(self):
+        if self._is_dead:
+            print(f"The cold body of {self._name} lies here.")
+        else:
+            print(f"{self._name} ({self._role}) crosses arms with a smug, arrogant smirk.")
+
+class SecretiveSuspect(NPC):
+    """Subclass representing a secretive/sneaky character."""
+    def behavior(self):
+        if self._is_dead:
+            print(f"The cold body of {self._name} lies here.")
+        else:
+            print(f"{self._name} ({self._role}) glances around furtively, keeping to the dark corners.")
+
+class CalmSuspect(NPC):
+    """Subclass representing an unnervingly calm character."""
+    def behavior(self):
+        if self._is_dead:
+            print(f"The cold body of {self._name} lies here.")
+        else:
+            print(f"{self._name} ({self._role}) looks unnervingly calm and collected.")

@@ -56,7 +56,7 @@ NPC_CONFIGS = [
     {
         "name": "Sam",
         "role": "Party Host",
-        "type": "standard",
+        "type": "calm",
         "dialogues": [
             {
                 "topic": "murder",
@@ -65,7 +65,7 @@ NPC_CONFIGS = [
             },
             {
                 "topic": "suspect",
-                "response": "Honestly? I don't know. Everyone was acting weird last night. But if I had to guess, I'd say Daniel. That guy looks like he knows more than he tells us. No offense.",
+                "response": "Honestly? I don't know. Everyone was acting weird last night. But if I had to guess, I'd say {suspect}. They seem to know more than they let on. No offense.",
                 "required_night": 1
             },
             {
@@ -81,7 +81,7 @@ NPC_CONFIGS = [
             },
             {
                 "topic": "living room",
-                "response": "Man, this is where everything happened last night. I think someone spilled an entire drink on the couch. Naomi is gonna kill me if she sees it.",
+                "response": "Man, this is where everything happened last night. I think someone spilled an entire drink on the couch. Someone's gonna kill me if they see it.",
                 "required_night": 1,
                 "required_location": "Living Room"
             },
@@ -104,12 +104,12 @@ NPC_CONFIGS = [
             },
             {
                 "topic": "suspect",
-                "response": "I don't wanna accuse anyone, but Naomi has been acting really weird. Then again, she's always kind of weird. Don't tell her I said that.",
+                "response": "I don't wanna accuse anyone, but {suspect} has been acting really weird. Then again, they can be weird. Don't tell them I said that.",
                 "required_night": 2
             },
             {
                 "topic": "hint",
-                "response": "Wait, I remember something! Someone was arguing near the basement before everything happened. I couldn't hear what they were saying, though. Actually... I think I saw something on the floor down there.",
+                "response": "Wait, I remember something! Someone was arguing near the basement before everything happened. I couldn't hear what they were saying, though. Actually... I think I saw something on the floor down there. The person responsible may be {killer_clue}.",
                 "required_night": 2
             },
             {
@@ -159,7 +159,7 @@ NPC_CONFIGS = [
             },
             {
                 "topic": "living room",
-                "response": "This was supposed to be the best party of the year. Now look at us. Great job, Sam. Absolutely fantastic.",
+                "response": "This was supposed to be the best party of the year. Now look at us. Great job, me. Absolutely fantastic.",
                 "required_night": 3,
                 "required_location": "Living Room"
             },
@@ -228,7 +228,7 @@ NPC_CONFIGS = [
             },
             {
                 "topic": "suspect",
-                "response": "I've noticed people aren't being honest. Sam especially. He's acting like everything is a joke, but I know him well enough to tell when something's wrong.",
+                "response": "I've noticed people aren't being honest. {suspect} especially. They're acting like everything is a joke, but I know them well enough to tell when something's wrong.",
                 "required_night": 2
             },
             {
@@ -256,7 +256,7 @@ NPC_CONFIGS = [
             },
             {
                 "topic": "bedroom",
-                "response": "Lorelai used to spend more time around the library than at parties. I guess she wasn't exactly made for this kind of chaos.",
+                "response": "I heard {quiet bookworm} used to spend more time around the library than at parties. I guess they weren't exactly made for this kind of chaos.",
                 "required_night": 2,
                 "required_location": "Bedroom"
             },
@@ -308,12 +308,12 @@ NPC_CONFIGS = [
         "dialogues": [
             {
                 "topic": "murder",
-                "response": "Excuse me? Someone died? Are you actually serious? I leave Sam alone for ONE night and suddenly we're in a crime documentary.",
+                "response": "Excuse me? Someone died? Are you actually serious? I leave {party host} alone for ONE night and suddenly we're in a crime documentary.",
                 "required_night": 1
             },
             {
                 "topic": "suspect",
-                "response": "Honestly? Daniel. That guy gives me weird vibes. He looks like he would have a secret underground computer room or something.",
+                "response": "Honestly? {suspect}. They give me weird vibes. They look like they would have a secret underground computer room or something.",
                 "required_night": 1
             },
             {
@@ -329,7 +329,7 @@ NPC_CONFIGS = [
             },
             {
                 "topic": "living room",
-                "response": "This is where Sam embarrassed himself trying to dance. I have a video, but unfortunately I think my phone died.",
+                "response": "This is where {party host} embarrassed themself trying to dance. I have a video, but unfortunately I think my phone died.",
                 "required_night": 1,
                 "required_location": "Living Room"
             },
@@ -352,7 +352,7 @@ NPC_CONFIGS = [
             },
             {
                 "topic": "suspect",
-                "response": "I don't trust Daniel. He's been following people around asking questions. Like, bro, you're not Sherlock Holmes.",
+                "response": "I don't trust {suspect}. They've been following people around asking questions. Like, bro, you're not Sherlock Holmes.",
                 "required_night": 2
             },
             {
@@ -362,7 +362,7 @@ NPC_CONFIGS = [
             },
             {
                 "topic": "kitchen",
-                "response": "Sam has been eating everything in this kitchen. I swear if I see him near my snacks one more time...",
+                "response": "The snacks keep disappearing from this kitchen. I swear, if it happens one more time...",
                 "required_night": 2,
                 "required_location": "Kitchen"
             },
@@ -380,7 +380,7 @@ NPC_CONFIGS = [
             },
             {
                 "topic": "bedroom",
-                "response": "Jayson was looking for something earlier. I don't know what, but he seemed pretty nervous. Maybe ask him.",
+                "response": "{suspect} was looking for something earlier. I don't know what, but they seemed pretty nervous. Maybe ask them.",
                 "required_night": 2,
                 "required_location": "Bedroom"
             },
@@ -407,7 +407,7 @@ NPC_CONFIGS = [
             },
             {
                 "topic": "living room",
-                "response": "Sam keeps pretending he's fine. He's not. I know him better than anyone here.",
+                "response": "Everyone keeps pretending they're fine, but it isn't convincing. I know my best friend better than anyone here.",
                 "required_night": 3,
                 "required_location": "Living Room"
             },
@@ -453,7 +453,7 @@ NPC_CONFIGS = [
             },
             {
                 "topic": "living room",
-                "response": "Lamarr played some really good music last night. I actually enjoyed myself more than I thought I would.",
+                "response": "{dj} played some really good music last night. I actually enjoyed myself more than I thought I would.",
                 "required_night": 1,
                 "required_location": "Living Room"
             },
@@ -476,7 +476,7 @@ NPC_CONFIGS = [
             },
             {
                 "topic": "suspect",
-                "response": "I noticed Daniel was acting strange yesterday. But he's always a little awkward, so maybe I'm just overthinking it.",
+                "response": "I noticed {suspect} was acting strange yesterday. But they can be a little awkward, so maybe I'm just overthinking it.",
                 "required_night": 2
             },
             {
@@ -492,7 +492,7 @@ NPC_CONFIGS = [
             },
             {
                 "topic": "living room",
-                "response": "I remember Lamarr being here for most of the party. He was busy with the music, so I don't think he noticed everything happening around him.",
+                "response": "I remember {dj} being here for most of the party. They were busy with the music, so I don't think they noticed everything happening around them.",
                 "required_night": 2,
                 "required_location": "Living Room"
             },
@@ -552,7 +552,7 @@ NPC_CONFIGS = [
     {
         "name": "Jayson",
         "role": "Basketball Player",
-        "type": "standard",
+        "type": "arrogant",
         "dialogues": [
             {
                 "topic": "murder",
@@ -561,7 +561,7 @@ NPC_CONFIGS = [
             },
             {
                 "topic": "suspect",
-                "response": "I don't know, man. Everyone seems pretty chill. Maybe Daniel? He was standing around looking suspicious. But honestly, I don't know.",
+                "response": "I don't know, man. Everyone seems pretty chill. Maybe {suspect}? They were standing around looking suspicious. But honestly, I don't know.",
                 "required_night": 1
             },
             {
@@ -577,7 +577,7 @@ NPC_CONFIGS = [
             },
             {
                 "topic": "living room",
-                "response": "This is where we were playing music and dancing. I think I accidentally broke something here. Don't tell Sam.",
+                "response": "This is where we were playing music and dancing. I think I accidentally broke something here. Don't tell {party host}.",
                 "required_night": 1,
                 "required_location": "Living Room"
             },
@@ -600,7 +600,7 @@ NPC_CONFIGS = [
             },
             {
                 "topic": "suspect",
-                "response": "I think we should be careful about Daniel. He seems nervous whenever someone mentions the murder. But maybe he's just scared. I don't want to blame anyone without knowing.",
+                "response": "I think we should be careful about {suspect}. They seem nervous whenever someone mentions the murder. But maybe they're just scared. I don't want to blame anyone without knowing.",
                 "required_night": 2
             },
             {
@@ -616,7 +616,7 @@ NPC_CONFIGS = [
             },
             {
                 "topic": "living room",
-                "response": "I was here talking to Naomi yesterday. She seemed worried about something. I wanted to ask her, but I didn't want to make things awkward.",
+                "response": "I was here talking to one of the guests yesterday. They seemed worried about something. I wanted to ask, but I didn't want to make things awkward.",
                 "required_night": 2,
                 "required_location": "Living Room"
             },
@@ -676,11 +676,11 @@ NPC_CONFIGS = [
     {
         "name": "Daniel",
         "role": "Awkward Nerd",
-        "type": "standard",
+        "type": "secretive",
         "dialogues": [
             {
                 "topic": "murder",
-                "response": "Wait, what? Someone died? Oh my God. I literally thought this was just going to be a normal party. Well, as normal as Sam's parties can be.",
+                "response": "Wait, what? Someone died? Oh my God. I literally thought this was just going to be a normal party. Well, as normal as the host's parties can be.",
                 "required_night": 1
             },
             {
@@ -701,7 +701,7 @@ NPC_CONFIGS = [
             },
             {
                 "topic": "living room",
-                "response": "This is where Sam was standing most of the night. He was talking to everyone. I remember because I was... also in the room. Obviously.",
+                "response": "This is where {party host} was standing most of the night. They were talking to everyone. I remember because I was... also in the room. Obviously.",
                 "required_night": 1,
                 "required_location": "Living Room"
             },
@@ -724,7 +724,7 @@ NPC_CONFIGS = [
             },
             {
                 "topic": "suspect",
-                "response": "Sam has been acting strangely. But I don't think he would do something like this. I mean, I know him... well, sort of. We're not exactly close.",
+                "response": "{suspect} has been acting strangely. But I don't think they would do something like this. I mean, I know them... well, sort of. We're not exactly close.",
                 "required_night": 2
             },
             {
@@ -768,7 +768,7 @@ NPC_CONFIGS = [
             },
             {
                 "topic": "hint",
-                "response": "Okay, I've been keeping this to myself, but I found something that might connect two of the people here. I think you should take a look.",
+                "response": "Okay, I've been keeping this to myself, but I found something that might connect two of the people here. I think you should take a look. It also fits this detail: {killer_detail}.",
                 "required_night": 3
             },
             {
@@ -779,7 +779,7 @@ NPC_CONFIGS = [
             },
             {
                 "topic": "living room",
-                "response": "I remember Sam laughing here on the first night. It feels strange thinking about that now. Everything was so normal.",
+                "response": "I remember {party host} laughing here on the first night. It feels strange thinking about that now. Everything was so normal.",
                 "required_night": 3,
                 "required_location": "Living Room"
             },
