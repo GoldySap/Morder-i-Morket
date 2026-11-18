@@ -4,7 +4,7 @@ import sys
 from configs import NPC_CONFIGS, LOCATION_CONFIGS, ITEM_CONFIGS
 from item import Item
 from location import Location
-from npc import NPC, DefiantSuspect, NervousSuspect, QuietSuspect, QuietSuspect
+from npc import NPC, DefiantSuspect, NervousSuspect, QuietSuspect, QuietSuspect, ArrogantSuspect, SecretiveSuspect, CalmSuspect
 from player import Player
 
 
@@ -67,6 +67,12 @@ class MurderInTheDarkGame:
                 npc = DefiantSuspect(conf["name"], conf["role"])
             elif npc_type == "quiet":
                 npc = QuietSuspect(conf["name"], conf["role"])
+            elif npc_type == "arrogant":
+                npc = ArrogantSuspect(conf["name"], conf["role"])
+            elif npc_type == "secretive":
+                npc = SecretiveSuspect(conf["name"], conf["role"])
+            elif npc_type == "calm":
+                npc = CalmSuspect(conf["name"], conf["role"])
             else:
                 npc = NPC(conf["name"], conf["role"])
 
@@ -275,6 +281,9 @@ class MurderInTheDarkGame:
                 if not items_in_room:
                     print("\nThere are no items to pick up.")
                 else:
+                    print("\nItems available to pick up:")
+                    for item in items_in_room:
+                        print(f"  - {item.get_name()}")
                     item_name = input("Enter item name: ").strip()
                     self._player.pick_up_item(item_name)
 
