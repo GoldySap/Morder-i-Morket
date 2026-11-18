@@ -25,8 +25,8 @@ class MurderInTheDarkGame:
     def setup(self):
         """Builds the game world, items, characters, and player dynamically from configs."""
         self._setup_locations()
-        self._setup_items()
         self._setup_characters()
+        self._setup_items()
         self._player = Player("Detective", self._locations["Living Room"])
 
     def _setup_locations(self):
@@ -50,8 +50,13 @@ class MurderInTheDarkGame:
     def _setup_items(self):
         """Creates and places items in rooms based on ITEM_CONFIGS."""
         for item_data in ITEM_CONFIGS:
-            item = Item(item_data["name"], item_data["description"])
+            description = item_data["description"].format(
+                killer=self._killer.get_name()
+            )
+
+            item = Item(item_data["name"], description)
             target_room = item_data["start_location"]
+
             if target_room in self._locations:
                 self._locations[target_room].add_item(item)
 

@@ -33,7 +33,23 @@ ITEM_CONFIGS = [
         "name": "Torn Note",
         "description": "A note reading: 'Meet me downstairs after 1 AM.'",
         "start_location": "Bedroom"
-    }
+    },
+
+    {
+    "name": "Party Log",
+    "description": (
+        "A crumpled paper recording events from the party. "
+        "12:40 AM - Someone spilled a drink in the kitchen. "
+        "12:55 AM - {killer} borrowed a flashlight. "
+        "1:10 AM - A loud noise was heard downstairs. "
+        "The rest of the paper is torn off."
+    ),
+    "start_location": "Kitchen"
+},
+
+
+
+
 ]
 
 NPC_CONFIGS = [
