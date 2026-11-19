@@ -40,16 +40,22 @@ ITEM_CONFIGS = [
     "description": (
         "A crumpled paper recording events from the party. "
         "12:40 AM - Someone spilled a drink in the kitchen. "
-        "12:55 AM - {killer} borrowed a flashlight. "
+        "12:55 AM - The flashlight was borrowed by {killer_clue}. "
         "1:10 AM - A loud noise was heard downstairs. "
         "The rest of the paper is torn off."
     ),
     "start_location": "Kitchen"
 },
-
-
-
-
+    {
+        "name": "Used Flashlight",
+        "description": "A flashlight with basement dust on its casing. Its nearly drained battery suggests it was used for more than a quick trip downstairs.",
+        "start_location": "Basement"
+    },
+    {
+        "name": "Flashlight Checkout Card",
+        "description": "A checkout card has no name, but it records this detail about the borrower: {killer_detail}.",
+        "start_location": "Living Room"
+    },
 ]
 
 NPC_CONFIGS = [

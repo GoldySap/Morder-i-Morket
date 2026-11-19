@@ -10,6 +10,40 @@ class SafeDict(dict):
     def __missing__(self, key):
         return f"{{{key}}}"
 
+
+def get_role_clues(role: str) -> tuple[str, str]:
+    role_clues = {
+        "party host": (
+            "someone in the host's inner circle",
+            "they were responsible for organizing the party",
+        ),
+        "dj": (
+            "someone who spent time around the party's equipment",
+            "they controlled what played over the speakers",
+        ),
+        "sam's best friend": (
+            "someone in the host's inner circle",
+            "they were the host's closest friend",
+        ),
+        "quiet bookworm": (
+            "someone who watched more than they joined in",
+            "they often turned to books and quiet places",
+        ),
+        "basketball player": (
+            "someone who spent time around the party's equipment",
+            "they were looking for athletic gear",
+        ),
+        "awkward nerd": (
+            "someone who watched more than they joined in",
+            "they tend to notice patterns and statistics",
+        ),
+    }
+    return role_clues.get(
+        role.lower(),
+        ("someone who kept a low profile", "their actions may not match their story"),
+    )
+
+
 class NPC:
     """Superclass for characters with movement and conditional dialogue rules."""
     def __init__(self, name:str, role:str):
@@ -138,36 +172,7 @@ class NPC:
                 living_suspects[speaker_index % len(living_suspects)]
                 if living_suspects else None
             )
-            role_clues = {
-                "party host": (
-                    "someone in the host's inner circle",
-                    "they were responsible for organizing the party",
-                ),
-                "dj": (
-                    "someone who spent time around the party's equipment",
-                    "they controlled what played over the speakers",
-                ),
-                "sam's best friend": (
-                    "someone in the host's inner circle",
-                    "they were the host's closest friend",
-                ),
-                "quiet bookworm": (
-                    "someone who watched more than they joined in",
-                    "they often turned to books and quiet places",
-                ),
-                "basketball player": (
-                    "someone who spent time around the party's equipment",
-                    "they were looking for athletic gear",
-                ),
-                "awkward nerd": (
-                    "someone who watched more than they joined in",
-                    "they tend to notice patterns and statistics",
-                ),
-            }
-            clue, clue_detail = role_clues.get(
-                killer_npc.get_role().lower(),
-                ("someone who kept a low profile", "their actions may not match their story"),
-            )
+            clue, clue_detail = get_role_clues(killer_npc.get_role())
             context_data = {
                 "player": player_name,
                 "self": self._name,

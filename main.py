@@ -4,7 +4,7 @@ import sys
 from configs import NPC_CONFIGS, LOCATION_CONFIGS, ITEM_CONFIGS
 from item import Item
 from location import Location
-from npc import NPC, DefiantSuspect, NervousSuspect, QuietSuspect, QuietSuspect, ArrogantSuspect, SecretiveSuspect, CalmSuspect
+from npc import NPC, DefiantSuspect, NervousSuspect, QuietSuspect, QuietSuspect, ArrogantSuspect, SecretiveSuspect, CalmSuspect, get_role_clues
 from player import Player
 
 
@@ -50,8 +50,10 @@ class MurderInTheDarkGame:
     def _setup_items(self):
         """Creates and places items in rooms based on ITEM_CONFIGS."""
         for item_data in ITEM_CONFIGS:
+            killer_clue, killer_detail = get_role_clues(self._killer.get_role())
             description = item_data["description"].format(
-                killer=self._killer.get_name()
+                killer_clue=killer_clue,
+                killer_detail=killer_detail,
             )
 
             item = Item(item_data["name"], description)
@@ -217,24 +219,26 @@ class MurderInTheDarkGame:
         for idx, suspect in enumerate(living_suspects, 1):
             print(f" [{idx}] {suspect.get_name()} ({suspect.get_role()})")
 
-        try:
-            accuse_idx = int(input("\nSelect the killer's number: ")) - 1
-            chosen_suspect = living_suspects[accuse_idx]
+        while True:
+            try:
+                accuse_idx = int(input("\nSelect the killer's number: ")) - 1
+                chosen_suspect = living_suspects[accuse_idx]
+                break
+            except (ValueError, IndexError):
+                print("\nInvalid selection. Choose a listed suspect.")
 
-            print(f"\nYou gather everyone and accuse {chosen_suspect.get_name()} of murder!")
+        print(f"\nYou gather everyone and accuse {chosen_suspect.get_name()} of murder!")
 
-            if chosen_suspect == self._killer:
-                print("\nVICTORY! YOU FOUND THE KILLER!")
-                print(f"{chosen_suspect.get_name()} breaks down and admits to killing {self._victim.get_name()}!")
-                print("You successfully solved the mystery before time ran out!")
-            else:
-                print("\nWRONG ACCUSATION!")
-                print(f"{chosen_suspect.get_name()} is innocent!")
-                print(f"The real killer was {self._killer.get_name()}! They strike you down in the chaos!")
+        if chosen_suspect == self._killer:
+            print("\nVICTORY! YOU FOUND THE KILLER!")
+            print(f"{chosen_suspect.get_name()} breaks down and admits to killing {self._victim.get_name()}!")
+            print("You successfully solved the mystery before time ran out!")
+        else:
+            print("\nWRONG ACCUSATION!")
+            print(f"{chosen_suspect.get_name()} is innocent!")
+            print(f"The real killer was {self._killer.get_name()}! They strike you down in the chaos!")
 
-            sys.exit()
-        except (ValueError, IndexError):
-            print("\nInvalid selection.")
+        sys.exit()
 
     def play(self):
         self.setup()
